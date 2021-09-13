@@ -41,13 +41,7 @@ torch.set_num_threads(1)
 torch.set_num_interop_threads(1)
 
 
-def compute_fbank_librispeech():
-    src_dir = Path("data/manifests")
-    output_dir = Path("data/fbank")
-    num_jobs = min(15, os.cpu_count())
-    num_mel_bins = 80
-
-    dataset_parts = (
+def compute_fbank_librispeech( dataset_parts = (
         "dev-clean",
         "dev-other",
         "test-clean",
@@ -55,7 +49,12 @@ def compute_fbank_librispeech():
         "train-clean-100",
         "train-clean-360",
         "train-other-500",
-    )
+    )):
+    src_dir = Path("data/manifests")
+    output_dir = Path("data/fbank")
+    num_jobs = min(15, os.cpu_count())
+    num_mel_bins = 80
+    
     manifests = read_manifests_if_cached(
         dataset_parts=dataset_parts, output_dir=src_dir
     )
